@@ -1,0 +1,243 @@
+{
+  "hardware": {
+    "receipt_printers": {
+      "default": {
+        "type": "thermal",
+        "width": 80,
+        "encoding": "utf8",
+        "interface": "usb",
+        "driver": "escpos"
+      },
+      "models": {
+        "epson_tm_t88": {
+          "name": "Epson TM-T88 Series",
+          "vendor_id": "0x04b8",
+          "product_id": "0x0202",
+          "width": 80,
+          "cuts": true,
+          "cash_drawer_pin": 0
+        },
+        "star_tsp100": {
+          "name": "Star TSP100 Series",
+          "vendor_id": "0x0519",
+          "product_id": "0x0003",
+          "width": 80,
+          "cuts": true,
+          "cash_drawer_pin": 0
+        },
+        "zebra_zd410": {
+          "name": "Zebra ZD410 Series",
+          "vendor_id": "0x0a5f",
+          "product_id": "0x0070",
+          "width": 104,
+          "cuts": false,
+          "cash_drawer_pin": null
+        }
+      }
+    },
+    "cash_drawers": {
+      "default": {
+        "interface": "printer_connected",
+        "trigger": "pulse",
+        "pulse_duration": 120
+      },
+      "models": {
+        "apg_vasario": {
+          "name": "APG Vasario Series",
+          "interface": "printer_connected",
+          "pins": [0, 1],
+          "pulse_duration": 120,
+          "lock_enabled": true
+        },
+        "ms_cash_drawer": {
+          "name": "M-S Cash Drawer",
+          "interface": "serial",
+          "port": "COM1",
+          "baudrate": 9600,
+          "pulse_duration": 100
+        },
+        "pos_x_ion": {
+          "name": "POS-X ION Series",
+          "interface": "usb",
+          "vendor_id": "0x0b56",
+          "product_id": "0x0001",
+          "pulse_duration": 150
+        }
+      }
+    },
+    "barcode_scanners": {
+      "default": {
+        "interface": "usb_hid",
+        "decode_types": ["code128", "code39", "ean13", "ean8", "upca", "upce"],
+        "prefix": "",
+        "suffix": "\r\n"
+      },
+      "models": {
+        "honeywell_voyager": {
+          "name": "Honeywell Voyager Series",
+          "vendor_id": "0x0c2e",
+          "product_id": "0x0200",
+          "interface": "usb_hid",
+          "decode_types": ["*"]
+        },
+        "datalogic_gryphon": {
+          "name": "Datalogic Gryphon Series",
+          "vendor_id": "0x05f9",
+          "product_id": "0x4204",
+          "interface": "usb_hid",
+          "decode_types": ["*"]
+        },
+        "code_cr1000": {
+          "name": "Code CR1000 Series",
+          "vendor_id": "0x1234",
+          "product_id": "0x5678",
+          "interface": "usb_hid",
+          "wireless": true
+        }
+      }
+    },
+    "card_readers": {
+      "default": {
+        "interface": "api",
+        "encryption": true,
+        "supported_cards": ["visa", "mastercard", "amex", "discover"]
+      },
+      "models": {
+        "square_reader": {
+          "name": "Square Card Reader",
+          "api_endpoint": "https://connect.squareup.com/v2",
+          "supports": ["chip", "tap", "swipe"],
+          "encryption": "end_to_end"
+        },
+        "paypal_here": {
+          "name": "PayPal Here Card Reader",
+          "api_endpoint": "https://api.paypal.com/v1",
+          "supports": ["chip", "tap", "swipe"],
+          "encryption": "end_to_end"
+        },
+        "sumup_reader": {
+          "name": "SumUp Card Reader",
+          "api_endpoint": "https://api.sumup.com/v0.1",
+          "supports": ["chip", "tap", "swipe"],
+          "bluetooth": true
+        },
+        "stripe_terminal": {
+          "name": "Stripe Terminal",
+          "api_endpoint": "https://api.stripe.com/v1",
+          "supports": ["chip", "tap", "swipe"],
+          "encryption": "end_to_end"
+        }
+      }
+    },
+    "customer_displays": {
+      "default": {
+        "type": "pole_display",
+        "characters": "20x2",
+        "interface": "serial"
+      },
+      "models": {
+        "bematech_ld9900": {
+          "name": "Bematech LD9900",
+          "type": "pole_display",
+          "characters": "20x2",
+          "interface": "serial",
+          "port": "COM2",
+          "baudrate": 9600
+        },
+        "epson_dm_d110": {
+          "name": "Epson DM-D110",
+          "type": "customer_facing",
+          "resolution": "800x480",
+          "interface": "usb",
+          "touchscreen": false
+        },
+        "posiflex_pd2600": {
+          "name": "Posiflex PD-2600",
+          "type": "pole_display",
+          "characters": "20x2",
+          "interface": "usb",
+          "vendor_id": "0x0d3d",
+          "product_id": "0x0001"
+        }
+      }
+    },
+    "scales": {
+      "default": {
+        "interface": "serial",
+        "unit": "kg",
+        "precision": 3
+      },
+      "models": {
+        "avery_berkel": {
+          "name": "Avery Berkel Scale",
+          "interface": "serial",
+          "port": "COM3",
+          "baudrate": 9600,
+          "unit": "kg",
+          "precision": 3,
+          "tare_enabled": true
+        },
+        "mettler_toledo": {
+          "name": "Mettler Toledo Scale",
+          "interface": "ethernet",
+          "ip_address": "192.168.1.100",
+          "port": 4001,
+          "unit": "kg",
+          "precision": 3
+        }
+      }
+    }
+  },
+  "system": {
+    "auto_detect": true,
+    "fallback_mode": true,
+    "simulation_mode": false,
+    "logging": {
+      "enabled": true,
+      "level": "info",
+      "file": "logs/hardware.log"
+    }
+  },
+  "integrations": {
+    "payment_gateways": {
+      "stripe": {
+        "enabled": true,
+        "test_mode": true,
+        "webhook_endpoint": "/api/webhooks/stripe"
+      },
+      "square": {
+        "enabled": false,
+        "test_mode": true,
+        "webhook_endpoint": "/api/webhooks/square"
+      },
+      "paypal": {
+        "enabled": false,
+        "test_mode": true,
+        "webhook_endpoint": "/api/webhooks/paypal"
+      }
+    },
+    "inventory_systems": {
+      "automatic_updates": true,
+      "sync_interval": 300,
+      "low_stock_alerts": true
+    }
+  },
+  "features": {
+    "offline_mode": {
+      "enabled": true,
+      "sync_when_online": true,
+      "max_offline_transactions": 1000
+    },
+    "receipt_options": {
+      "print_automatically": true,
+      "email_receipts": true,
+      "sms_receipts": false,
+      "digital_receipts": true
+    },
+    "loyalty_program": {
+      "enabled": true,
+      "points_per_dollar": 1,
+      "redemption_rate": 100
+    }
+  }
+}
